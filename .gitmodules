@@ -1,0 +1,3 @@
+[submodule "laradock_adsy"]
+	path = laradock_adsy
+	url = https://github.com/Laradock/laradock.git
