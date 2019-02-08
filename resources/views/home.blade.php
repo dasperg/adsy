@@ -110,7 +110,7 @@
                 <tr>
                     <td>{{ $expense->user->name }}</td>
                     <td>{{ $expense->date_purchased }}</td>
-                    <td>{{ $expense->amount }}</td>
+                    <td>{{ $expense->currency->code }} {{ $expense->ammount }}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -135,11 +135,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form" name="form">
+                    <form id="form" name="form" action="{{ route('expense.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <div class="form-group">
                                 <label>Date:</label>
-                                <input class="form-control" name="date_puchased" id="datetime" type="datetime-local">
+                                <input class="form-control" name="date_puchased" id="datetime" type="date">
                                 <label>Description:</label>
                                 <input class="form-control" name="description" id="Description" type="text">
                                 <label>Comment:</label>

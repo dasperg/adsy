@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Expense;
 use App\Currency;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class ExpenseController extends Controller
@@ -50,6 +51,7 @@ class ExpenseController extends Controller
 
         // Save Expense
         $expense = new Expense();
+        $expense->user_id = Auth::id();
         $expense->date_purchased = Input::get('date_purchased', now());
         $expense->description = Input::get('description', '');
         $expense->comment = Input::get('comment', '');
@@ -58,7 +60,7 @@ class ExpenseController extends Controller
         $expense->receipt = $path;
         $expense->save();
 
-        return redirect('expense.show', $expense->id);
+        return redirect()->route('expense.index');
     }
 
     /**
