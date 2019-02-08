@@ -20,7 +20,6 @@ class CreateExpensesTable extends Migration
             $table->string('comment');
             $table->float('ammount');
             $table->integer('currency_id')->index();
-            $table->string('bank_account');
             $table->string('receipt');
             $table->timestamps();
         });
