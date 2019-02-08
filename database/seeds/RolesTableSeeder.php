@@ -12,16 +12,14 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        // Common user [1]
+        // Common user (employee)
         $role = new Role();
-        $role->id = Role::EMPLOYEE;
-        $role->name = 'Employee';
+        $role->name = Role::EMPLOYEE;
         $role->save();
 
-        // Manager [2]
+        // Manager
         $role = new Role();
-        $role->id = Role::MANAGER;
-        $role->name = 'Management';
+        $role->name = Role::MANAGER;
         $role->save();
     }
 }
