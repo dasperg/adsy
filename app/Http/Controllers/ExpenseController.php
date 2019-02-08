@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Expense;
 use App\Currency;
 use Illuminate\Http\Request;
-use App\Expense;
+use Illuminate\Support\Facades\Input;
 
 class ExpenseController extends Controller
 {
@@ -15,11 +16,12 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::all();
+        $expenses = Expense::query()
+            ->orderByDesc('date_purchased')
+            ->get();
         $currencies = Currency::all();
-        dd($currencies);
 
-        return view('home');
+        return view('home', compact('expenses', 'currencies'));
     }
 
     /**
@@ -40,7 +42,23 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // TODO: Validation
+
+        // Save image
+        $path = $request->file('receipt')
+            ->store('receipt');
+
+        // Save Expense
+        $expense = new Expense();
+        $expense->date_purchased = Input::get('date_purchased', now());
+        $expense->description = Input::get('description', '');
+        $expense->comment = Input::get('comment', '');
+        $expense->ammount = Input::get('ammount', 0);
+        $expense->currency_id = Input::get('currency_id', Currency::CHF);
+        $expense->receipt = $path;
+        $expense->save();
+
+        return redirect('expense.show', $expense->id);
     }
 
     /**
@@ -53,7 +71,7 @@ class ExpenseController extends Controller
     {
         $expense = Expense::findOrFail($id);
 
-        return view('expense.show');
+        return view('expense.show', compact('expense'));
     }
 
     /**
@@ -87,6 +105,9 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Expense::findOrFail($id)
+            ->delete();
+
+        return redirect('expense.index');
     }
 }
