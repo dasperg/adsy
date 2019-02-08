@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Currency;
 use Illuminate\Http\Request;
+use App\Expense;
 
 class ExpenseController extends Controller
 {
@@ -13,7 +15,10 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        // $expenses = Expense::all();
+        $expenses = Expense::all();
+        $currencies = Currency::all();
+        dd($currencies);
+
         return view('home');
     }
 
@@ -46,7 +51,7 @@ class ExpenseController extends Controller
      */
     public function show($id)
     {
-        // $expense = Expense::findOrFail($id);
+        $expense = Expense::findOrFail($id);
 
         return view('expense.show');
     }
