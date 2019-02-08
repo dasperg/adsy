@@ -137,18 +137,20 @@
                       <div class="form-group">
                         <div class="form-group">
                       <label>Date:</label>
-                      <input class="form-control" id="datetime" type="datetime-local">
+                      <input class="form-control" name="date_puchased" id="datetime" type="datetime-local">
                       <label>Description:</label>
-                      <input class="form-control" id="Description" type="text">
+                      <input class="form-control" name="description" id="Description" type="text">
                       <label>Comment:</label>
-                      <input class="form-control" id="Comment" type="text">
+                      <input class="form-control" name="comment" id="Comment" type="text">
                       <label>Amount:</label>
-                      <input class="form-control" id="Amount" type="number">
+                      <input class="form-control" name="ammount" id="Amount" type="number">
                       <label>Currency:</label>
-                      <select class="form-control" id="Currency">
-                        <option>1</option>
+                      <select class="form-control" name="currency_id" id="Currency">
+                          @foreach($currencies as $currency)
+                            <option value="{{ $currency->id }}">{{ $currency->code }}</option>
+                          @endforeach
                       </select>
-                      <input type="file" name="photo" accept="image/*" capture="environment">
+                      <input type="file" name="receipt" accept="image/*" capture="environment">
                       <input class="btn btn-success" id="submit" type="submit" value="+ ADD">
                       </div>
                     </form>
