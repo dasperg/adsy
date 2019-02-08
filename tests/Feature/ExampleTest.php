@@ -18,4 +18,17 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    /**
+     * Test expense route is behind middleware
+     *
+     * @return void
+     */
+    public function testAuthorization()
+    {
+        $response = $this->get('expense');
+
+        $response->assertStatus(302);
+        $response->assertRedirect('login');
+    }
 }
